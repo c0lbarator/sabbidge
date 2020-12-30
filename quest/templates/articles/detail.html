@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{%block title %}{{article.title}}{% endblock %}
+
+{% block content %}
+
+<h2>{{article.title}}</h2>
+<p>{{article.text}}</p>
+
+<em>{{article.date}}</em>
+
+{% if article.lol %}
+НОВАЯ СТАТЬЯ!
+{% endif %}
+<hr>
+{% if lclist %}
+    {% for c in lclist %}
+        <p>
+            <strong>{{c.au_name}}</strong>
+            <p>{{c.comment}}</p>
+        </p>
+    {% endfor %}
+{% else %}
+Не понял,почему тут нет комментариев. А ну гони свой! :)
+{% endif %}
+
+<hr>
+<form action="{% url 'articles:leave_comment' article.id %}"method="POST">
+
+    {% csrf_token %}
+
+    <input type="text" required="" placeholder='Ваше имя' name="name"><br>
+    <textarea name="text" required="" placeholder="Комментарий" cols="30" rows="10"></textarea><br>
+
+    <button type="submit">Оставить комментарий</button>
+</form>
+
+{% endblock %}

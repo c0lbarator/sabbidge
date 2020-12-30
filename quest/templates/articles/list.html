@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{%block title %}Последние задания{% endblock %}
+
+{% block content %}
+
+    {% if larlist %}
+
+        {% for a in larlist %}
+            <a href="{% url 'articles:detail' a.id %}">{{a.title}}</a>
+        {% endfor %}
+
+    {% else %}
+        Статьи не найдены (((
+    {% endif %}
+
+{% endblock %}
